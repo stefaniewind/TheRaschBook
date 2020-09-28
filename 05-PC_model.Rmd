@@ -76,8 +76,6 @@ Wright Map or Variable Map
 ```{r}
 # Plot the Variable Map
 plotPImap(PC_model)
-# Plot the Wright Map 
-plotPWmap(PC_model) ## Cheng - note that this one shows fit, not locations. I wouldn't call it a Wright map even if that's what eRm calls it.
 ```
 
 Item characteristic curves
@@ -91,6 +89,8 @@ plotICC(PC_model, ask = FALSE)
 ### Examine item difficulty values:
 item.estimates <- thresholds(PC_model)
 item.estimates
+item_difficulty <- item.estimates[["threshtable"]][["1"]]
+
 ## Get threshold SEs values:
 item.se <- item.estimates$se.thresh
 item.se
@@ -101,14 +101,19 @@ item.se
 # Standard errors for theta estimates:
 person.locations.estimate <- person.parameter(PC_model)
 summary(person.locations.estimate)
+# Build a table for person locations
+person_theta <- person.locations.estimate$theta.table
 ```
 ### Exam the item and person fit statistics
 ```{r}
 item.fit <- itemfit(person.locations.estimate)
 item.fit
+item.fit.table <- cbind(item.fit[["i.outfitMSQ"]],item.fit[["i.infitMSQ"]],item.fit[["i.infitMSQ"]],item.fit[["i.infitZ"]])
 pfit <- personfit(person.locations.estimate)
 pfit
+person.fit.table <- cbind(pfit[["p.outfitMSQ"]],pfit[["p.outfitMSQ"]],pfit[["p.outfitMSQ"]],pfit[["p.outfitMSQ"]])
 ```
+
 
 ### Exercise
 Can you plot the Standardized Residuals for our PC model? 
