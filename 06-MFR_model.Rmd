@@ -105,7 +105,7 @@ library(TAM)
 g.facet <- g.data[,"raters",drop=FALSE] # specify which facets will be included in the model (Here, we are including raters as a facet. Items ("assessment opportunities"; occassions on which the object of measurement is observed) are included as a facet by default)
 g.pid <- g.data$subjects # specify the ID for the object of measurement (Here, this is the Jr. Scientist)
 g.resp <- g.data[,-c(1:2)] # Indicate the response matrix
-g.formulaA <- ~ item + raters + step # Model formula for RS-MFR model (to specify a PC-MFR model where the scale varies by rater)
+g.formulaA <- ~ item + raters + step # Model formula for RS-MFR model (multiply (raters * step) to specify a PC-MFR model where the scale varies by rater)
 g.model <- tam.mml.mfr(resp=g.resp,facets=g.facet,formulaA=g.formulaA,pid=g.pid)
 # Run the many-facet model
 ```
