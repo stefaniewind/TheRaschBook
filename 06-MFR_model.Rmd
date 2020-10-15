@@ -132,10 +132,6 @@ theta # Print out the person's ability
 item.fit <- msq.itemfit(g.model)
 summary(item.fit) # fit is shown for the rater*item combinations
 
-## Item fit based on WLE 
-item.fit2 <- msq.itemfitWLE(g.model)
-summary(item.fit2)
-
 library(knitr) # Use the knitr package to print out the result table
 kable(g.model$xsi.facets,digits=2)
 ```
