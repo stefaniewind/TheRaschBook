@@ -180,4 +180,106 @@ plot(g.model, type="expected")
 Robert J. Sternberg & Elena L. Grigorenko (2001) Guilford's Structure of Intellect Model and Model of Creativity: Contributions and Limitations, Creativity Research Journal, 13:3-4, 309-316, DOI: 10.1207/S15326934CRJ1334_08
 
 
+## Example 2:
+
+As a second example, let's analyze some data from a performance assessment in which 21 raters scored 372 students' essays on four domains: Style, Organization, Conventions, and Sentence Formation
+
+```{r}
+# Input the data from the .csv file:
+georgia_writing <- read.csv("georgia_writing.csv")
+```
+
+Note that the data are in *long* format: This means that there are multiple rows for each element within the object of measurement (multiple rows for each student).
+
+```{r}
+# Get a summary of the data
+summary(georgia_writing)
+
+# count the unique student ids:
+length(unique(georgia_writing$student))
+```
+
+Next, let's prepare the data for analysis with TAM by shifting the scale so that the lowest category equals zero:
+
+```{r}
+# Recode the scale to begin at 0
+georgia_writing[, -c(1:2)] <- georgia_writing[, -c(1:2)] - 1
+```
+
+Now, we can run a MFR model with the following facets: Students (object of measurement), Raters, and Domains. 
+
+To work with the TAM package, we will treat Domains like items.
+
+We will run a Rating Scale formulation of the model first.
+
+```{r}
+
+# First, ensure that the data are ordered by the object of measurement:
+georgia_writing <- georgia_writing[order(georgia_writing$student),]
+
+
+## set up the MFR model analysis:
+
+# identify the facets besides items:
+writing.facets <- georgia_writing[, c("rater"),drop=FALSE] 
+
+# identify the object of measurement:
+writing.pid <- georgia_writing$student 
+
+# identify the response matrix:
+writing.resp <- georgia_writing[,-c(1:2)]
+
+# specify the RS-MFR model:
+RS.writing.formula <- ~ item + rater + step 
+
+# Run the RS-MFR model:
+
+writing.model <- tam.mml.mfr(resp=writing.resp,facets=writing.facets,
+                             formulaA=RS.writing.formula, pid=writing.pid)
+
+# Request a summary of the model results:
+summary(writing.model)
+
+# Save the facet estimates:
+facet.estimates <- writing.model$xsi.facets # all facets together
+
+domain.estimates <- subset(facet.estimates, facet.estimates$facet == "item")
+
+rater.estimates <- subset(facet.estimates, facet.estimates$facet == "rater")
+
+threshold.estimates <- subset(facet.estimates, facet.estimates$facet == "step")
+
+
+```
+
+### Student Estimates
+```{r}
+## Student Estimates
+
+# Student fit:
+person.fit <- tam.personfit(writing.model)
+person.fit # Check the person infit/outfit
+
+# Student achievement estimates:
+student.ach <- tam.wle(writing.model)
+theta <- student.ach$theta
+summary(theta)
+```
+
+### Domain/Rater Fit:
+```{r}
+## Compute rater and domain fit statistics 
+# (note that these are called "items" in the TAM code).
+rater_domain.fit <- msq.itemfit(writing.model)
+summary(rater_domain.fit) # fit is shown for the rater*item combinations
+```
+
+### Plots
+
+#### The WrightMap 
+
+```{r}
+library(WrightMap)
+IRT.WrightMap(writing.model)
+
 
