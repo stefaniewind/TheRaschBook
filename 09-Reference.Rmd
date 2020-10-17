@@ -1,18 +1,23 @@
 # Reference & Other Good Stuff {#Ref1}
 
-## Abbreviations
+## Rasch Glossary
 
 ### Rasch Models
-> Rasch Models
 
-| Abbreviation | Description | 
-| :---        |    :----    | 
-| RSM | Rating Scale Model | 
-| PCM |Partial Credit Model | 
-| MFRM | Many-facet Rasch Model | 
-| GLMM | Generalized Linear Mixed Models |
+| Abbreviation | Description | Citation |
+| :---        |    :----    | :----:  |
+| DRM | Dichotomous Rasch Model | Rasch(1960/1980)|
+| RSM | Rating Scale Model | Andrich (1978)|
+| MFRM | Many-facet Rasch Model | NA |
+| PCM |Partial Credit Model | Master(1982)|
 
-> Diagnostic and Exploratory Rasch Figures
+[Andrich, D. (1978). “A rating formulation for ordered response categories.” Psychometrika,43(4),561–573.doi:10.1007/BF02293814](https://link.springer.com/article/10.1007/BF02293814)
+
+[Masters, G.N. A rasch model for partial credit scoring. Psychometrika 47, 149–174 (1982). https://doi.org/10.1007/BF02296272](https://link.springer.com/article/10.1007/BF02296272#citeas)
+
+[Rasch, G. (1960/1980). Probabilistic models for some intelligence and attainment tests.(Copenhagen, Danish Institute for Educational Research), expanded edition (1980) with foreword and afterword by B.D. Wright. Chicago: The University of Chicago Press.](https://eric.ed.gov/?id=ED419814)
+
+### Diagnostic and Exploratory Rasch Figures
 
 | Abbreviation | Description | 
 | :---        |    :----    | 
@@ -21,12 +26,12 @@
 | IRF | Item Response Function | 
 | TCC | Test Characteristic Curve | 
 
-> Estimation methods and Estimates
+### Estimation methods and Estimates
 
-| Abbreviation | Description | 
+| Abbreviation | Description |
 | :---        |    :----    | 
-| AML(E) | Anchored Maximum Likelihood (Estimation)|
-| CML(E) | Conditional Maximum Likelihood (Estimation) | 
+| [AML(E)](https://www.rasch.org/rmt/rmt102t.htm) | Anchored Maximum Likelihood (Estimation)|
+| CML(E) | Conditional Maximum Likelihood (Estimation)| 
 | EAP | Expected A Posterior (Estimate) | 
 | JML(E) | Joint Maximum Likelihood (Estimation) | 
 | UCON(E) | Unconditional Maximum Likelihood (Estimation) | 
@@ -35,17 +40,54 @@
 
 **Note***: JMLE "Joint Maximum Likelihood Estimation" is also called UCON, "Unconditional maximum likelihood estimation". It was devised by [Wright & Panchapakesan](https://www.rasch.org/memo46.htm).
 
-### Useful Rasch Software & R-Packages
+### Popular R-Packages for running Rasch Model
 
-Useful Rasch Software
+1, "eRm"(*Extended Rasch Modeling*) R Package
 
-Useful Rasch R-Packages
+- [#1:Manual](https://cran.r-project.org/web/packages/eRm/eRm.pdf) 
 
+- [#2:Source Code](https://github.com/cran/eRm)
 
-## Rasch friendly Jounrals 
+- [#3:Commonly used functions](https://www.rdocumentation.org/packages/eRm/versions/1.0-1)
 
+- #4: citation
+
+Mair, P., & Hatzinger, R. (2007). Extended Rasch modeling: The eRm package for
+the application of IRT models in R. Journal of Statistical Software, 20(9),
+1-20. http://www.jstatsoft.org/v20/i09
+
+2, "TAM"(*Test Analysis Modules*) R package
+
+- [#1:Manual](https://cran.r-project.org/web/packages/TAM/TAM.pdf) 
+
+- [#2:Source Code](https://github.com/alexanderrobitzsch/TAM)
+
+- [#3:Commonly used functions](https://www.rdocumentation.org/packages/TAM/versions/3.5-19)
+
+- #4: citation
+
+Robitzsch, A., Kiefer, T., & Wu, M. (2020). TAM: Test Analysis Modules. R
+  package version 3.5-19. https://CRAN.R-project.org/package=TAM
+
+3, WrightMap packages (Best for plotting WrightMaps)
+
+- [#1: HomePage](https://www.wrightmap.org/) 
+
+  *Check the Tutorials on the site to learn all the neat tricks！*
+
+- [#2: Manual](https://cran.r-project.org/web/packages/WrightMap/WrightMap.pdf)
+
+- #3: Commonly used functions
+
+Torres Irribarra, D. & Freund, R. (2014). Wright Map: IRT item-person map with
+  ConQuest integration. Available at http://github.com/david-ti/wrightmap
+
+## [Rasch friendly Jounrals](https://www.rasch.org/friendly.htm)
+
+These Journals have published papers relating to Rasch analysis and Rasch measurement. They are believed to be willing to publish more.
 
 ## Rasch Model Application Tempaltes
+
 
 
 ## Reference for this book

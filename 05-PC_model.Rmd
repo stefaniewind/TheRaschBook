@@ -90,6 +90,7 @@ plotICC(PC_model, ask = FALSE)
 item.estimates <- thresholds(PC_model)
 item.estimates
 item_difficulty <- item.estimates[["threshtable"]][["1"]]
+item_difficulty
 
 ## Get threshold SEs values:
 item.se <- item.estimates$se.thresh
@@ -103,6 +104,7 @@ person.locations.estimate <- person.parameter(PC_model)
 summary(person.locations.estimate)
 # Build a table for person locations
 person_theta <- person.locations.estimate$theta.table
+person_theta
 ```
 ### Exam the item and person fit statistics
 ```{r}
@@ -114,6 +116,65 @@ pfit
 person.fit.table <- cbind(pfit[["p.outfitMSQ"]],pfit[["p.outfitMSQ"]],pfit[["p.outfitMSQ"]],pfit[["p.outfitMSQ"]])
 ```
 
+### Calculate the Person/Item Separation Reliability
+
+As we mentioned in the previous chapter \@ref{Reliability}, Person/Item separation reliability is the estimate of how well we can differentiate individual items, persons, or other elements on the latent variable. Since not all the R packages include both separation reliability, the following is the example of calculating the Person/Item separation reliability.
+
+We use the "braun_data" as an example:
+
+#### Calculate the Item Separation Reliability
+
+```{r}
+# ===================================
+# compute item separation reliability
+# ===================================
+
+# Get Item scores
+ItemScores <- colSums(PC_data_balanced)
+
+# Get Item SD
+ItemSD <- apply(PC_data_balanced,2,sd)
+
+# Calculate the se of the Item
+ItemSE <- ItemSD/sqrt(length(ItemSD))
+
+# compute the Observed Variance (also known as Total Person Variability or Squared Standard Deviation)
+SSD.ItemScores <- var(ItemScores)
+
+# compute the Mean Square Measurement error (also known as Model Error variance)
+Item.MSE <- sum((ItemSE)^2) / length(ItemSE)
+
+# compute the Item Separation Reliability
+item.separation.reliability <- (SSD.ItemScores-Item.MSE) / SSD.ItemScores
+item.separation.reliability
+```
+
+#### Calculate the Person Separation Reliability
+
+```{r}
+# ===================================
+# compute person separation reliability
+# ===================================
+
+# Get Person scores
+PersonScores <- rowSums(PC_data_balanced)
+
+# Get Person SD
+PersonSD <- apply(PC_data_balanced,1,sd)
+
+# Calculate the se of the Person
+PersonSE <- PersonSD/sqrt(length(PersonSD))
+
+# compute the Observed Variance (also known as Total Person Variability or Squared Standard Deviation)
+SSD.PersonScores <- var(PersonScores)
+
+# compute the Mean Square Measurement error (also known as Model Error variance)
+Person.MSE <- sum((PersonSE)^2) / length(PersonSE)
+
+# compute the Person Separation Reliability
+person.separation.reliability <- (SSD.PersonScores-Person.MSE) / SSD.PersonScores
+person.separation.reliability
+```
 
 ### Exercise
 Can you plot the Standardized Residuals for our PC model? 

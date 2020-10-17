@@ -213,10 +213,8 @@ To work with the TAM package, we will treat Domains like items.
 We will run a Rating Scale formulation of the model first.
 
 ```{r}
-
 # First, ensure that the data are ordered by the object of measurement:
 georgia_writing <- georgia_writing[order(georgia_writing$student),]
-
 
 ## set up the MFR model analysis:
 
@@ -281,5 +279,6 @@ summary(rater_domain.fit) # fit is shown for the rater*item combinations
 ```{r}
 library(WrightMap)
 IRT.WrightMap(writing.model)
+```
 
 

@@ -85,6 +85,9 @@ tam.fit(rs_model)
 rs_threshold <- tam.threshold(rs_model)
 rs_threshold # This provides the detail logit location for each categories for each rater.
 ```
+**Note** The tam.threshold() function is actually calculating Thurstonian thresholds, whereas the tau estimates are [Andrich thresholds](https://www.winsteps.com/winman/disorder.htm). These are different parameters. 
+
+The Thurstonian thresholds are cumulative, meaning that they reflect the probability for responding in a category of interest or any higher category. The Andrich thresholds are adjacent-categories thresholds, which reflect the point on the logit scale at which there is an equal probability for a rating in a category of interest or the category just below it. You can check [here](https://www.winsteps.com/winman/ratingscale.htm) for more information.
 
 ### Person estimates and fit Statistics
 ```{r}

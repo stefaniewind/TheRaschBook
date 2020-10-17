@@ -165,8 +165,6 @@ legend("bottomright", c("Item Location", "Identity Line", "95% Confidence Band")
 
 ```
 
-This plot also shows one item (Item 11) with coordinates (-1.14, -0.14) that falls beyond the 95% CI – indicating potential DIF.
-
 Finally, let’s make a bar plot to illustrate the differences in item difficulty between the subgroups.
 
 ```{r}

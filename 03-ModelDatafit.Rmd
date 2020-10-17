@@ -51,7 +51,7 @@ Note the Estimate in this output indicates the easiness of the Item. This is exa
 
 The Model-data fit in the context of Rasch is different from other IRT models. Other IRT approach is focus on finding the _best model_ to fit the data. However, the Rasch approach focuses on diagnosing departures from model expectations. Within the Rasch framework, the model is viewed as an _"ideal type"_. It is a theoretical mathematical description of what measurement looks like. Its fit statistics summarize discrepancies between observations and expectations to help researchers improve their measurement procedures.
 
-### Reliability Indices in Rasch Measurement
+### Reliability Indices in Rasch Measurement {#Reliability}
 
 > Definition of reliability in the 2014 Test Standards
 
