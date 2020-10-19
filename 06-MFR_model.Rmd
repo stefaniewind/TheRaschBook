@@ -281,4 +281,61 @@ library(WrightMap)
 IRT.WrightMap(writing.model)
 ```
 
+#### Simple histograms of estimates:
+
+```{r}
+
+graphics.off()
+
+min.logit <- floor(min(theta))
+max.logit <- ceiling(max(theta))
+
+par(mfrow = c(3, 1))
+hist(theta, xlim = c(min.logit, max.logit), main = "Student Locations", col = "aquamarine", 
+     axes = FALSE, xlab = "Logits")
+abline(v = c(threshold.estimates$xsi[1],
+             threshold.estimates$xsi[2],
+             threshold.estimates$xsi[3]), col = c("blue", "red", "orange"), lwd = 2)
+axis(1, at = seq(min.logit, max.logit, by = 1), labels = seq(min.logit, max.logit, by = 1))
+axis(2)
+
+
+hist(rater.estimates$xsi, xlim = c(min.logit, max.logit), main = "Rater Locations", col = "hot pink", 
+     axes = FALSE, xlab = "Logits")
+
+abline(v = c(threshold.estimates$xsi[1],
+             threshold.estimates$xsi[2],
+             threshold.estimates$xsi[3]), col = c("blue", "red", "orange"), lwd = 2)
+axis(1, at = seq(min.logit, max.logit, by = 1), labels = seq(min.logit, max.logit, by = 1))
+axis(2)
+
+hist(domain.estimates$xsi, xlim = c(min.logit, max.logit), main = "Domain Locations", col = "purple", 
+     axes = FALSE, xlab = "Logits")
+
+abline(v = c(threshold.estimates$xsi[1],
+             threshold.estimates$xsi[2],
+             threshold.estimates$xsi[3]), col = c("blue", "red", "orange"), lwd = 2)
+axis(1, at = seq(min.logit, max.logit, by = 1), labels = seq(min.logit, max.logit, by = 1))
+axis(2)
+legend("right", c("tau 1", "tau 2", "tau 3"), lty = 1, 
+       col = c("blue", "red", "orange"), lwd = 2)
+
+
+
+```
+
+
+#### Plot Item Response Curves
+
+```{r}
+# Plot Item Response curves
+graphics.off()
+plot(writing.model, type="items")
+
+
+# Plot expected response curves
+graphics.off()
+plot(writing.model, type="expected")
+```
+
 
