@@ -1,8 +1,9 @@
+
 # Basics of Differential Item Functioning {#DIF}
 
-## R-lab Purpose
+## Purpose
 
-The purpose of this lab is to introduce students to some basic differential item functioning (DIF) analyses based on Rasch models. We will use "eRm" package for most of the analyses for this lab.
+The purpose of this lab is to introduce students to some basic differential item functioning (DIF) analyses based on Rasch models. We will use the "eRm" package for most of the analyses in this lab.
 
 ## R-lab 1: DIF Analysis with the Dichotomous Rasch Model
 
@@ -11,7 +12,7 @@ The purpose of this lab is to introduce students to some basic differential item
 ```{r}
 # Load the package
 library(eRm)
-# If you want to cite the R packages that you're planning to use in your research article, you can use the citation function to achieve the detailed citation.
+# If you want to cite the R packages that you're planning to use in your research article, you can use the citation function:
 citation("eRm")
 ```
 
@@ -79,6 +80,7 @@ comparisons <- as.data.frame(subgroup_diffs$coef.table)
 It is often useful to visualize the test statistics for the item comparison. You can do this using a simple scatterplot. Ti.	To run the scatterplot code all at once, highlight/select the code between “#*start” and “#* stop” and run it.
 
 ```{r}
+graphics.off()
 min.y <- ifelse(ceiling(min(comparisons$`z-statistic`)) > -3, -3, 
                 ceiling(min(comparisons$`z-statistic`)))
 
@@ -94,7 +96,7 @@ legend("topright", c("Z Statistic", "Boundaries for Significant Difference"),
        pch = c(1, NA), lty = c(NA, 2), col = c("black", "red"), cex = .7)
 ```
 
-This plot highlights Item that significantly different between subgroups.
+This plot highlights items that are significantly different between subgroups.
 
 ### Export the item comparison results for later use using the following code.
 
@@ -128,11 +130,11 @@ The following code will create a scatterplot with 95% confidence bands to highli
 ## First, calculate values for constructing the confidence bands:
 
 mean.1.2 <- ((subgroup_1_diffs - mean(subgroup_1_diffs))/2*sd(subgroup_1_diffs) +
-            (subgroup_2_diffs - mean(subgroup_2_diffs))/2*sd(subgroup_2_diffs))
+               (subgroup_2_diffs - mean(subgroup_2_diffs))/2*sd(subgroup_2_diffs))
 
 joint.se <- sqrt((subgroup_diffs$se.beta1^2/sd(subgroup_1_diffs)) +
-                  (subgroup_diffs$se.beta2^2/sd(subgroup_2_diffs)))
-                   
+                   (subgroup_diffs$se.beta2^2/sd(subgroup_2_diffs)))
+
 
 upper.group.1 <- mean(subgroup_1_diffs) + ((mean.1.2 - joint.se )*sd(subgroup_1_diffs))
 upper.group.2 <- mean(subgroup_2_diffs) + ((mean.1.2 + joint.se )*sd(subgroup_2_diffs))
@@ -188,9 +190,9 @@ for (item.number in 1:30){
 item_dif <- as.vector(item_dif)
 
 x <- barplot(item_dif, horiz = TRUE, xlim = c(-2, 2), 
-            col = colors,
-            ylim = c(1,40), 
-            xlab = "Logit Difference")
+             col = colors,
+             ylim = c(1,40), 
+             xlab = "Logit Difference")
 
 # code to add labels to the plot:
 
@@ -307,12 +309,12 @@ for(item.number in 1:ncol(responses)){
   n.thresholds.g1 <-  length(table(responses.g1[, item.number+1]))-1
   
   group1_item.se.overall[item.number] <- mean(subgroup_diffs$se.beta1[((item.number*(n.thresholds.g1))-(n.thresholds.g1-1)): 
-                                                                           (item.number*(n.thresholds.g1))])
+                                                                        (item.number*(n.thresholds.g1))])
   
   n.thresholds.g2 <-  length(table(responses.g2[, item.number+1]))-1
   
   group2_item.se.overall[item.number] <- mean(subgroup_diffs$se.beta2[((item.number*(n.thresholds.g2))-(n.thresholds.g2-1)): 
-                                                                           (item.number*(n.thresholds.g2))])
+                                                                        (item.number*(n.thresholds.g2))])
 }
 
 group1_item.se.overall
@@ -321,11 +323,11 @@ group2_item.se.overall
 ```
 
 Then, we will use our own code to calculate test statistics for the differences in overall item difficulties:
-
-```{r}
+  
+  ```{r}
 # Calculate test statistics for item comparisons:
 z <- (group1_item.diffs.overall - group2_item.diffs.overall)/
-      sqrt(group1_item.se.overall^2 + group2_item.se.overall^2)
+  sqrt(group1_item.se.overall^2 + group2_item.se.overall^2)
 
 # view test statistics in the console:
 z
@@ -443,7 +445,7 @@ x <- barplot(item_dif, horiz = TRUE, xlim = c(-2, 2),
              col = colors,
              #=ylim = c(1,4), 
              xlab = "Logit Difference")
-            
+
 # code to add labels to the plot:
 
 dif_labs <- NULL
@@ -472,27 +474,27 @@ legend("bottomright", c("Diff >= .5 logits", "Diff < .5 logits"),
 
 ## Example APA-format results section for basic DIF analysis
 
-  In this analysis, we examined the degree to which there was evidence of uniform differential item functioning (DIF) between two subgroups of participants (group 1 and group 2) in the “pcmdat2” example dataset from the using the Extended Rasch Models (“eRm”) package (Mair, Hatzinger, & Maier, 2020) for R. The data included 300 participants’ responses to four rating scale items made up of three ordered categories (*X* = 0, 1, or 2). We used the eRm package to conduct all of the analyses.
+In this analysis, we examined the degree to which there was evidence of uniform differential item functioning (DIF) between two subgroups of participants (group 1 and group 2) in the “pcmdat2” example dataset from the using the Extended Rasch Models (“eRm”) package (Mair, Hatzinger, & Maier, 2020) for R. The data included 300 participants’ responses to four rating scale items made up of three ordered categories (*X* = 0, 1, or 2). We used the eRm package to conduct all of the analyses.
 
-  As a first step in the analysis, we examined item difficulty estimates and standard errors specific to each subgroup using the Partial Credit model (Masters, 1982). We estimated item difficulty for the two subgroups using a combined analysis of both subgroups and then estimating the group-specific item difficulties using the eRm package. Group-specific item difficulties and standard errors are shown in Table 1.
+As a first step in the analysis, we examined item difficulty estimates and standard errors specific to each subgroup using the Partial Credit model (Masters, 1982). We estimated item difficulty for the two subgroups using a combined analysis of both subgroups and then estimating the group-specific item difficulties using the eRm package. Group-specific item difficulties and standard errors are shown in Table 1.
 
-  To examine the differences in item difficulty between subgroups, we calculated standardized differences following Wright and Masters (1982) as follows: $$z=\left(d_{1}-d_{2}\right) / \sqrt{se_{1}^{2}+se_{2}^{2}}$$
-
+To examine the differences in item difficulty between subgroups, we calculated standardized differences following Wright and Masters (1982) as follows: $$z=\left(d_{1}-d_{2}\right) / \sqrt{se_{1}^{2}+se_{2}^{2}}$$
+  
   where $z$ is the standardized difference, d1 is the item difficulty specific to Subgroup 1, d2 is the item difficulty specific to Subgroup 2, $se_{1}^{2}$ is the standard error of the item difficulty specific to Subgroup 1, and $se_{2}^{2}$ is the standard error of the item difficulty specific to Subgroup 2. Using the formulation of the z statistic, higher values of z indicate higher item locations (more-difficult to endorse) for Subgroup 1 compared to Subgroup 2.   
-  
-  Figure 1 shows a plot of the z-statistics for the four survey items; these values are also presented numerically in Table 1. In the figure, the x-axis shows the item identification numbers, and the y-axis shows the value of the z-statistic. Boundaries at +2 and -2 are indicated using dashed horizontal lines to highlight statistically significant differences in item difficulty between subgroups. Examination of these results indicates that the items were not significantly different in difficulty between the two subgroups. In addition, there were both positive and negative z statistics, indicating that although the differences in item difficulty were not significant, there were some items that were easier to endorse for Subgroup 1 and others that were easier to endorse for Subgroup 2.
-  
+
+Figure 1 shows a plot of the z-statistics for the four survey items; these values are also presented numerically in Table 1. In the figure, the x-axis shows the item identification numbers, and the y-axis shows the value of the z-statistic. Boundaries at +2 and -2 are indicated using dashed horizontal lines to highlight statistically significant differences in item difficulty between subgroups. Examination of these results indicates that the items were not significantly different in difficulty between the two subgroups. In addition, there were both positive and negative z statistics, indicating that although the differences in item difficulty were not significant, there were some items that were easier to endorse for Subgroup 1 and others that were easier to endorse for Subgroup 2.
+
 ![Figure 1: Plot of Standardized Differences for Items between Subgroups](DIF_figure1.png)  
 
-  To further explore the differences in item difficulty between the two subgroups, Figure 2 shows a scatterplot of the item locations between the two subgroups. In the plot, the item difficulty for Subgroup 1 is shown on the x-axis, and the item difficulty for Subgroup 2 is shown on the y-axis. Individual items are indicated using open circle plotting symbols. A solid identity line is included to highlight deviations from invariant item difficulties between the two groups: Points that fall below this line indicate that items were easier to endorse (lower item measures) for Subgroup 2, and points that fall above the line indicate that items were easier to endorse (lower item measures) for Subgroup 1. Dashed lines are also included to indicate a 95% confidence interval for the difference between the item measures, following Luppescu (1995).
-  
+To further explore the differences in item difficulty between the two subgroups, Figure 2 shows a scatterplot of the item locations between the two subgroups. In the plot, the item difficulty for Subgroup 1 is shown on the x-axis, and the item difficulty for Subgroup 2 is shown on the y-axis. Individual items are indicated using open circle plotting symbols. A solid identity line is included to highlight deviations from invariant item difficulties between the two groups: Points that fall below this line indicate that items were easier to endorse (lower item measures) for Subgroup 2, and points that fall above the line indicate that items were easier to endorse (lower item measures) for Subgroup 1. Dashed lines are also included to indicate a 95% confidence interval for the difference between the item measures, following Luppescu (1995).
+
 ![Figure 2: Scatterplot of Subgroup-Specific Item Difficulties](DIF_figure2.png)  
-  
-  Finally, Figure 3 is a bar plot that illustrates the direction and magnitude of the differences in item difficulty between subgroups. In the plot, each bar represents the difference in difficulty between subgroups for an individual item, ordered by the item sequence in the survey. Bars that point to the left of the plot indicate that the item was easier to endorse for Subgroup 1, and bars that point to the right of the plot indicate that the item was easier to endorse for Subgroup 2. Dashed vertical lines are plotted that show values of +0.5 and -0.5 logits as an indicator of substantial differences in item difficulty between subgroups. 
-  
+
+Finally, Figure 3 is a bar plot that illustrates the direction and magnitude of the differences in item difficulty between subgroups. In the plot, each bar represents the difference in difficulty between subgroups for an individual item, ordered by the item sequence in the survey. Bars that point to the left of the plot indicate that the item was easier to endorse for Subgroup 1, and bars that point to the right of the plot indicate that the item was easier to endorse for Subgroup 2. Dashed vertical lines are plotted that show values of +0.5 and -0.5 logits as an indicator of substantial differences in item difficulty between subgroups. 
+
 ![Figure 3: Bar Plot of Differences In Item Difficulty Between Subgroups](DIF_figure3.png)  
-  
-## Reference
+
+## References
 
 Luppescu, S. (1995). Comparing measures: Scatterplots. Rasch Measurement Transactions, 9(1), 410.
 
@@ -503,8 +505,3 @@ Masters, G. N., & Wright, B. D. (1997). The partial credit model. In W. J. van d
 Mair, P., Hatzinger, R., & Maier M. J. (2020). eRm: Extended Rasch Modeling. 1.0-1. https://cran.r-project.org/package=eRm
 
 Wright, B. D., & Masters, G. N. (1982). Rating Scale Analysis: Rasch Measurement. MESA Press.
-
-
-
-
-  
