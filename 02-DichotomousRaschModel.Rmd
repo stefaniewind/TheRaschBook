@@ -1,21 +1,30 @@
 # Dichotomous Rasch Models {#Dich_Rasch_model}
 
+This chapter provides a basic overview of the dichotomous Rasch model, along with guidance for analyzing data using the dichotomous Rasch model with R. At the end of the chapter, a challenge exercise and resources for further study are presented.
+
 ## Dichotomous Rasch Model
 
-### Definition
+The dichotomous Rasch model (Rasch, 1960) is the simplest model in the Rasch family of models (Wright & Mok, 2004). It was designed for use with ordinal data that are scored in two categories (usually 0 or 1). The dichotomous Rasch model uses sum scores from these ordinal responses to calculate interval-level estimates that represent person locations (i.e., person ability or person achievement) and item locations (i.e., the difficulty to provide a correct or positive response) on a linear scale that represents the latent variable (the log-odds or "logit" scale). The difference between person and item locations can be used to calculate the probability for a correct or positive response (x = 1), rather than an incorrect or negative response (x = 0).
+
+### Model Equation
+
+The equation for the dichotomous Rasch model can be expressed in log-odds form as follows:
 
 $$\ln_{}{}\left[\frac{\phi_{n i 1}}{\phi_{n i 0}}\right]=\theta_{n}-\delta_{i}$$
-The Rasch model predicts the probability of person *n* on item *i* providing a correct (x = 1), rather than incorrect (x = 0) response, given a person’s “ability” (*θn*) and an item’s difficulty (*δi*).
 
-### Basic Rasch Model & IRT Model Assumptions
+The Rasch model predicts the probability of person *n* on item *i* providing a correct or positive (x = 1), rather than an incorrect or negative (x = 0) response, given a person’s “ability” (*θn*) and an item’s difficulty (*δi*), as expressed on the logit scale.
 
-- Each person can be characterized by an ability (i.e., level), denoted as *θn*
+### Model Requirements
 
-- Each item can be characterized by a difficulty, denoted as *δi*
+Estimates that are calculated using the dichotomous Rasch model can only be meaningfully interpreted if there is evidence that the data approximate the requirements for the model. Key among dichotomous Rasch model requirements are the following:
 
-- Person ability and item difficulty can be expressed on one linear continuum (line)
+* Unidimensionality: A single latent variable is sufficient to explain most of the variation in item responses
+* Local independence: After controlling for the latent variable, there is no meaningful relationship between the responses to individual items
+* Person-invariant item estimates: Item locations do not depend on (i.e., are independent from) the persons whose responses are used to estimmate them
+* Item-invariant person estimates: Person locations  do not depend on (i.e., are independent from) the items used to estimate them
 
-- The probability of observing any particular response can be calculated from the difference between ability and difficulty
+Evidence that data approximate these requirements provides support for the meaningful interpretation and use of item and person estimates on the logit scale as indicators of item and person locations on the latent variable. In practice, many analysts evaluate these requirements using indicators of model-data fit for the facets in a Rasch model (in this case, items and persons). In the current chapter, we provide some basic code for calculating fit indices for items and persons. We explore this topic in more detail in Chapter 3.
+
 
 ## R-Lab: Running Dichotomous Rasch Model in R
 ### Understand the Data set
