@@ -1,4 +1,4 @@
-# Dichotomous Rasch Models {#Dich_Rasch_model}
+# Dichotomous Rasch Model {#Dich_Rasch_model}
 
 This chapter provides a basic overview of the dichotomous Rasch model, along with guidance for analyzing data using the dichotomous Rasch model with R. At the end of the chapter, a challenge exercise and resources for further study are presented.
 
@@ -9,16 +9,16 @@ The dichotomous Rasch model (Rasch, 1960) is the simplest model in the Rasch fam
 ### Model Equation
 
 The equation for the dichotomous Rasch model can be expressed in log-odds form as follows:
-
-$$\ln_{}{}\left[\frac{\phi_{n i 1}}{\phi_{n i 0}}\right]=\theta_{n}-\delta_{i}$$
-
-The Rasch model predicts the probability of person *n* on item *i* providing a correct or positive (x = 1), rather than an incorrect or negative (x = 0) response, given a person’s “ability” (*θn*) and an item’s difficulty (*δi*), as expressed on the logit scale.
+  
+  $$\ln_{}{}\left[\frac{\phi_{n i 1}}{\phi_{n i 0}}\right]=\theta_{n}-\delta_{i}$$
+  
+  The Rasch model predicts the probability of person *n* on item *i* providing a correct or positive (x = 1), rather than an incorrect or negative (x = 0) response, given a person’s “ability” (*θn*) and an item’s difficulty (*δi*), as expressed on the logit scale.
 
 ### Model Requirements
 
 Estimates that are calculated using the dichotomous Rasch model can only be meaningfully interpreted if there is evidence that the data approximate the requirements for the model. Key among dichotomous Rasch model requirements are the following:
-
-* Unidimensionality: A single latent variable is sufficient to explain most of the variation in item responses
+  
+  * Unidimensionality: A single latent variable is sufficient to explain most of the variation in item responses
 * Local independence: After controlling for the latent variable, there is no meaningful relationship between the responses to individual items
 * Person-invariant item estimates: Item locations do not depend on (i.e., are independent from) the persons whose responses are used to estimmate them
 * Item-invariant person estimates: Person locations  do not depend on (i.e., are independent from) the items used to estimate them
@@ -26,83 +26,154 @@ Estimates that are calculated using the dichotomous Rasch model can only be mean
 Evidence that data approximate these requirements provides support for the meaningful interpretation and use of item and person estimates on the logit scale as indicators of item and person locations on the latent variable. In practice, many analysts evaluate these requirements using indicators of model-data fit for the facets in a Rasch model (in this case, items and persons). In the current chapter, we provide some basic code for calculating fit indices for items and persons. We explore this topic in more detail in Chapter 3.
 
 
-## R-Lab: Running Dichotomous Rasch Model in R
+## Running Dichotomous Rasch Model in R
 ### Understand the Data set
 In this example,we will be working with data from a transitive reasoning test, which is a reasoning test related to relationships among physical objects. The transitive reasoning data were collected from a one-on-one interactive assessment in which an experimenter presented students with a set of objects, such as sticks, balls, cubes, and discs. The following description is given in [Sijtsma and Molenaar](https://methods.sagepub.com/book/introduction-to-nonparametric-item-response-theory) (2002), pp. 31-32:
-
-> The items for transitive reasoning had the following structure. A typical item used three sticks, here denoted A, B, and C, of different length, denoted Y, such that YA < YB < YC. The actual test taking had the form of a conversation between experimenter and child in which the sticks were identified by their colors rather than letters. First, sticks A and B were presented to a child, who was allowed to pick them up and compare their lengths, for example, by placing them next to each other on a table. 
+  
+  > The items for transitive reasoning had the following structure. A typical item used three sticks, here denoted A, B, and C, of different length, denoted Y, such that YA < YB < YC. The actual test taking had the form of a conversation between experimenter and child in which the sticks were identified by their colors rather than letters. First, sticks A and B were presented to a child, who was allowed to pick them up and compare their lengths, for example, by placing them next to each other on a table. 
 
 > Next, sticks B and C were presented and compared. Then all three sticks were displayed in a random order at large mutual distances so that their length differences were imperceptible, and the child was asked to infer the relation between sticks A and C from his or her knowledge of the relationship in the other two pairs.
 
 The transitive reasoning items varied in terms of the property students were asked to reason about (length, weight, area). The tasks also varied in terms of the number of items students were asked to reason about, and whether the tasks involved equalities, inequalities, or a mixture of equalities and inequalities. The characteristics of the transitive reasoning data are summarized in the following table:
+  
+  |Task|Property|Format|Objects|Measures|
+  | :--- | :---- |  :---- | :---- | :---- |
+  |1|Length|YA > YB > YC|Sticks|12, 11.5, 11 (cm)|
+  |2|Length|YA = YB = YC = YD |Tubes|12 (cm)|
+  |3|Weight|YA > YB > YC|Tubes|45, 25, 18 (g)|
+  |4|Weight|YA = YB = YC = YD|Cubes|65 (g)|
+  |5|Weight|YA < YB < YC|Balls|40, 50, 70 (g)|
+  |6|Area|YA > YB> YC|Discs|2.5, 7, 6.5 (diameter; cm)|
+  |7|Length|YA > YB = YC|Sticks|28.5, 27.5, 27.5 (cm)|
+  |8|Weight|YA >YB = YC|Balls|65, 40, 40 (g)|
+  |9|Length|YA = YB = YC = YD|Sticks|12.5, 12.5, 13, 13 (cm)|
+  |10|Weight|YA = YB < YC = YD|Balls|60, 60, 100, 100 (g)|
+  
+  
+### The TAM Package
 
-|Task|Property|Format|Objects|Measures|
-| :--- | :---- |  :---- | :---- | :---- |
-|1|Length|YA > YB > YC|Sticks|12, 11.5, 11 (cm)|
-|2|Length|YA = YB = YC = YD |Tubes|12 (cm)|
-|3|Weight|YA > YB > YC|Tubes|45, 25, 18 (g)|
-|4|Weight|YA = YB = YC = YD|Cubes|65 (g)|
-|5|Weight|YA < YB < YC|Balls|40, 50, 70 (g)|
-|6|Area|YA > YB> YC|Discs|2.5, 7, 6.5 (diameter; cm)|
-|7|Length|YA > YB = YC|Sticks|28.5, 27.5, 27.5 (cm)|
-|8|Weight|YA >YB = YC|Balls|65, 40, 40 (g)|
-|9|Length|YA = YB = YC = YD|Sticks|12.5, 12.5, 13, 13 (cm)|
-|10|Weight|YA = YB < YC = YD|Balls|60, 60, 100, 100 (g)|
+We will use the *"Test Analysis Modules"*, or "TAM" package (Robitzsch, Kiefer, & Wu, 2020) to run the dichotomous Rasch model analyses in this chapter. 
 
+The TAM package applies marginal maximum likelihood estimation (MMLE) to estimate the dichotomous Rasch model, and the package includes several useful functions related to the dichotomous Rasch model.
 
-### Prepare the R Packages for analysis
-In this session, we use the "TAM" package to do the Rasch Analysis. TAM is actually the abbreviation for *"Test Analysis Modules"*. Different from the *Winstep* software, it applies marginal maximum likelihood estimation (MMLE) instead of joint maximum likelihood estimation (JMLE).
-Note: Because of the different way of the estimation, the result might be slightly different with your *Winstep* outcomes.
-
-```{r message=FALSE, warning=FALSE}
-# Load the R package that we need for this analysis
-library("TAM") # For Dichotomous Rasch Analysis
-library("WrightMap") # For plotting the variable map
-library("Hmisc") # For descriptive data analysis
-library("formattable") # For format number as percentage
-```
-
-### Import the data & Running descriptive analysis
-```{r message=FALSE}
-library(readr) # Import the data from your computer
-transreas <- read_csv("transreas.csv")
-```
-Then,we run a descriptive analysis on our data.
+To get started with the TAM package, install and load it using the following code:
 ```{r}
-# Use the summary() function to overview the data
+install.packages("TAM")
+library("TAM")
+```
+
+To facilitate the example analysis, we will also use three other packages:
+  
+  WrightMap: XXXX
+```{r}
+install.packages("WrightMap")
+library("WrightMap") 
+```
+
+Hmisc: XXXX
+
+```{r}
+install.packages("Hmisc")
+library("Hmisc") 
+```
+
+formattable: XXXX
+
+```{r}
+install.packages("formattable")
+library("formattable") 
+```
+
+
+### Getting Started with the Analysis
+
+Now that we have installed and loaded the packages to our R session, we are ready to import the data. 
+
+In this book, we use the function read.csv() to import data that are stored using comma separated values. We encourage readers to use their preferred method for importing data files into R or R Studio.
+
+Please note that if you use read.csv() you will need to specify the file path to the location at which the data file is stored on your computer or set your working directory to the folder in which you have saved the data.
+
+First, we will import the data using read.csv() and store it in an object called "transreas":
+
+```{r}
+transreas <- read.csv("transreas.csv")
+```
+
+Next, we will explore the data using descriptive statistics using the summary() function:
+
+```{r}
+# Use the summary() function to calculate descriptive statistics for each variable in the dataset
 summary(transreas)
-# From the result, we can see there is no missing data for each variable. And we can also get a general idea on the range of the grades (from 2 to 6), Min, Max, Median for each task. 
-# You can also use describe() function as an alternative approach
-describe(transreas)
-# The Mean for each task in this table is the Proportion Correct statistic for each item (item difficulty estimate for Classical Test Theory)
 ```
+From the result, we can see there are no missing data. We can also get a general sense of the scales, range, and distribution of each variable in the dataset. For example, the mean for each task is the proportion correct statistic (item difficulty estimate for Classical Test Theory).
 
-### Runing the Dichotomous Rasch Model with CML Method
-To run the dichotomous Rasch Model using the TAM package, we only need students' item-level responses. So the first and second column of our data are not needed. 
+
+### Run the Dichotomous Rasch Model
+
+To run the dichotomous Rasch Model using the TAM package, need to isolate the item responses from the other variables in the data (Student IDs and Grade level). 
+
+We will create an object made up of only the item responses by removing the first two variables from the data, and then check the data to ensure it is ready for analysis.
+
 ```{r}
-# Trim the data
-Di_Rasch_data <- transreas[,c(-1,-2)]
-head(Di_Rasch_data) # Take a look
+# Remove the Student ID and Grade level variables:
+transreas.responses <- subset(transreas, select = -c(Student, Grade))
+
+# Check descriptive statistics:
+summary(transreas.responses)
 ```
 
+Now, we are ready to run the dichotomous Rasch model on the transitive reasoning data. We will use the tam() function to run the model and store the results in an object called dichot.transreas:
 ```{r results='hide'}
 # Running the Dichotomous Rasch Model
-Di_Rasch_model <- tam(Di_Rasch_data)
+dichot.transreas <- tam(transreas.responses)
 ```
+
+For brevity, we do not include all of the output from the model function in this book. However, after you run the model, you should see some output in the R console that includes information about each iteration in the estimation process.
+
+After you run the tam() function, your console will show estimates of item parameters (item difficulty locations), reliability estimates, and a summary of the time in which the analysis was completed. We will explore each of these results in more detail later.
 
 ### Overall Model Summary
 
+The next step is to request a summary of the model estimation results in order to begin to understand the results from the analysis.
+
+Request a summary of the dichotomous Rasch model results by applying the summary() function to the model object:
+
 ```{r}
-# Check the summary
-summary(Di_Rasch_model)
-# Plot the variable map 
-IRT.WrightMap(Di_Rasch_model,show.thr.lab=FALSE)
+# Request a summary of the model results
+summary(dichot.transreas)
 ```
 
-### Item Parameters
-First of all, let's pull out the item parameters from your model.
+From these results, we suggest taking a quick look at the Item Parameters as reported in the table labeled "Item Parameters in IRT parameterization."
+Because we ran a Rasch model, the alpha (discrimination) parameters are fixed to a constant value of 1. The "beta" parameters are the item locations on the latent variable. We will explore the item locations in more detail later in the analysis.
+
+### Plot a Wright Map to visualize item and person locations:
+
+A useful feature of Rasch models is that when there is acceptable fit between the model and the data (discussed in detail in in Chapter 3), it is possible to visualize and compare item and person locations on a single linear continuum. 
+
+Professor Bejamin D. Wright popularized an approach to displaying Rasch model results on a linear continuum, and this technique has been widely adopted by Rasch measurement researchers across disciplines. In his honor, these displays are often called "Wright Maps." In the literature, they are also referred to as "Variable Maps" (XXXX).
+
+As the next step in our analysis, we will use the WrightMap package to create a Wright Map from our model results. We will create the plot using the function IRT.WrightMap(). We will set the option for displaying threshold labels as "FALSE" for now, because we are working with dichotomous data. The following code will produce a Wright Map for the transitive reasoning data:
 ```{r}
-difficulty <- Di_Rasch_model$xsi
+# Plot the variable map 
+IRT.WrightMap(dichot.transreas,show.thr.lab=FALSE)
+```
+
+[ADD MORE DETAILS ABOUT THE WRIGHT MAP INTERPRETATION]
+
+Even though it is not appropriate to fully interpret item and person locations on the logit scale until there is evidence of acceptable model-data fit, 
+we recommend examining the Wright Map during the preliminary stages of an item analysis to get a general sense of the model results and to identify any potential scoring or data entry errors.
+
+We will return to this display for more exploration after checking for acceptable model-data fit, among other psychometric properties.
+
+
+### Examine Item Parameters:
+
+Next, let's examine the item parameters in detail.
+
+#*#*#* STOPPED EDITING HERE ON 12/6/2020 #*#*#*#*#
+
+```{r}
+difficulty <- dichot.transreas$xsi
 head(difficulty) 
 mean(difficulty$xsi) # The mean difficulty of the tasks is -1.936
 sd(difficulty$xsi) # The standard deviation for task difficulty is 1.56
@@ -252,9 +323,9 @@ hist(Di_Rasch_model_jml$theta)
 
 ```{r}
 plot(Di_Rasch_model_jml$xsi, Di_Rasch_model$xsi$xsi, pch=16,
-xlab=expression(paste(xi[i], "(JML)")),
-ylab=expression(paste(xi[i], "(MML)")),
-main="Item Parameter Estimate Comparison")
+     xlab=expression(paste(xi[i], "(JML)")),
+     ylab=expression(paste(xi[i], "(MML)")),
+     main="Item Parameter Estimate Comparison")
 lines(c(-5,5), c(-5,5), col="gray" )
 ```
 
