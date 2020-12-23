@@ -1,16 +1,29 @@
-# Model-data fit analyses {#MD_fit}
+# Model-Data Fit analyses {#MD_fit}
 
-## R-Lab: Model-data fit analysis
-For the previous lab, we used the R package "TAM" [(Robitzsch et al., 2018)](https://cran.r-project.org/web/packages/eRm/eRm.pdf) to run the Dichotomous Rasch analyses. In this lab, we will focus on another R Rasch package, which is the "eRm" package [(Mair & Hatzinger, 2007)](https://cran.r-project.org/web/packages/TAM/TAM.pdf). Please note that when we used "TAM" package with the MML estimation method, the item-person map looks a bit different compared with that produced by the "eRm" package which applies CML estimation.
+This chapter provides readers with an overview of several popular model-data fit analyses that can be used to inform the interpretation and use of Rasch model estimates. The chapter begins with a brief overview of model-data fit analysis from the perspective of Rasch measurement theory (Rasch, 1960). Then, we demonstrate several tools that analysts can use to evaluate model-data fit for Rasch models using R. As we did in Chapter 2, we use a dataset from a transitive reasoning assessment that was originally presented by Sijtsma and Molenaar (2002) to illustrate the application and interpretation of several model-data fit indices. The chapter concludes with a challenge exercise and resources for further study.
 
-### Get Data Prepared
-We are going to practice evaluating model-data fit with the transitive reasoning data from the previous lab.
+In using this chapter, we encourage readers to note that model-data fit analysis in modern measurement theory in general, as well as in the context of Rasch modles, is nuanced. The interpretation and use of model-data fit indices varies across assessment contexts that have unique purposes and consequences. As a result, it is critical that analysts consider the unique context in which they are evaluating model-data fit when they interpret the results from model-data fit analyses, rather than relying on previously published critical values or "rules-of-thumb" to interpret the results. In this chapter, we demonstrate several techniques that analysts can use to evaluate model-data fit within the Rasch measurement theory framework. However, our presentation is not exhaustive and there are many other methods that can be used to supplement those that we demonstrate here. 
 
-```{r message=FALSE}
-# Load the R-packages that you're going to use
-library("eRm") # For running the Dichotomous Rasch Model
-library("readr") # To import the data
+## Overview of Model-Data Fit Analyses from the Perspective of Rasch Measurement Theory
+
+In the context of Rasch measurement theory (Rasch, 1960), model-data fit analyses focus on evaluating the item response patterns associated with individual items, persons, and other elements of an assessment context (e.g., raters) for evidence of adherence to model requirements. Fit analyses help researchers identify individual elements whose responses deviate from what would be expected given adherence to the Rasch model. These deviations can alert researchers to individual elements of an assessment context that warrant additional investigation (e.g., in using qualitative analyses), revision (e.g., revisions to item text, revision of scoring materials in performance assessments), inform theory about the construct, and identify areas for future research. This individual-focused approach to evaluating model-data fit in which model requirements are used as a framework against which to *evaluate* response patterns stands in contrast to model-data fit approaches that often accompany other modern measurement approaches whose goal is typically to identify item response theory models that reflect the characteristics of a given dataset at a group level. 
+
+### Example Data: Transitive Reasoning
+We are going to practice evaluating model-data fit using the Transitive Reasoning assessment data that we explored in Chapter 2; these data were originally presented by Sijtsma and Molenaar (2002). Please see Chapter 2 for a detailed description of the dataset. 
+
+### The eRm package
+In this chapter, we will use the "eRm" package [(Mair & Hatzinger, 2007)](https://cran.r-project.org/web/packages/TAM/TAM.pdf) to conduct model-data fit analyses. It is possible to evaluate model-data fit using other R packages, including the other packages that we have included in this book. We selected eRm as the primary package for the analyses in the current chapter because it includes functions for evaluating model-data fit that are relatively straightforward to apply and interpret. Please note that the "eRm" package  uses the Conditional Maximum Likelihood Estimation (CMLE) method to estimate Rasch model parameters. As a result, estimates from the eRm package are not directly comparable to estimates obtained using other estimation methods.
+
+To get started with the TAM package, install and load it into your R environment using the following code:
+
+```{r}
+citation("eRm")
+install.packages("eRm")
+library("eRm")
 ```
+
+** SW paused editing here on December 22 ***
+
 
 ```{r message=FALSE}
 # Import the data
