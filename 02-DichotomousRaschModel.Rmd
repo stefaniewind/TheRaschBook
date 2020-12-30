@@ -63,7 +63,7 @@ The TAM package applies marginal maximum likelihood estimation (MMLE) to estimat
 To get started with the TAM package, install and load it into your R environment using the following code:
 ```{r}
 citation("TAM")
-install.packages("TAM")
+# install.packages("TAM")
 library("TAM")
 ```
 
@@ -72,7 +72,7 @@ To facilitate the example analysis, we will also use the *WrightMap* package (To
 WrightMap:
 ```{r}
 citation("WrightMap")
-install.packages("WrightMap")
+# install.packages("WrightMap")
 library("WrightMap") 
 ```
 
@@ -85,11 +85,13 @@ In this book, we use the function *read.csv()* to import data that are stored us
 Please note that if you use *read.csv()* you will need to specify the file path to the location at which the data file is stored on your computer or set your working directory to the folder in which you have saved the data.
 
 First, we will import the data using *read.csv()* and store it in an object called *transreas*:
+
 ```{r}
 transreas <- read.csv("transreas.csv")
 ```
 
 Next, we will explore the data using descriptive statistics using the *summary()* function:
+
 ```{r}
 summary(transreas)
 ```
@@ -101,6 +103,7 @@ Specifically, we can see that Student ID numbers range from 1 to 425, student gr
 ### Run the Dichotomous Rasch Model
 
 To run the dichotomous Rasch Model using the TAM package, need to isolate the item response matrix from the other variables in the data (student IDs and grade level). To do this, we will create an object made up of only the item responses by removing the first two variables from the data. We will remove the descriptive variables using the *subset()* function with the *select=* option. We will save the response matrix in a new object called *transreas.responses*:
+
 ```{r}
 # Remove the Student ID and Grade level variables:
 transreas.responses <- subset(transreas, select = -c(Student, Grade))
@@ -123,9 +126,14 @@ For brevity, we do not include all of the output from the model function in this
 
 [Cheng - can we add a screenshot here?]
 
+![Iteration Information](screenshots/Cha2_Iteration.png)
+
 After you run the *tam()* function, your console will show estimates of item parameters (item difficulty locations), reliability estimates, and a summary of the time in which the analysis was completed. We will explore each of these results in more detail later.
 
 [Cheng - can we add a screenshot here?]
+[Dr.Wind, the tam() result do not include item estimates. The item parameters shows up when you call summary() function]
+
+![TAM Result](screenshots/Cha2_TAM.png)
 
 ### Overall Model Summary
 
@@ -138,6 +146,7 @@ summary(dichot.transreas)
 From these results, we suggest taking a quick look at the Item Parameters as reported in the table labeled *Item Parameters in IRT parameterization.*
 
 [Cheng - can we add a screenshot here?]
+![Item Parameters](screenshots/Cha2_ItemParameters.png)
 
 Because we ran a Rasch model, the *alpha* (discrimination) parameters are fixed to a constant value of 1. The *beta* parameters are the item locations on the latent variable. We will explore the item locations in more detail later in the analysis.
 
@@ -156,16 +165,20 @@ In this *Wright Map* display, the results from the dichotomous Rasch model analy
 The left panel of the plot shows a histogram of respondent (person) locations on the logit scale that represents the latent variable. Units on the logit scale are shown on the far-right axis of the plot (labeled *Logits*). In the panel with the person locations, the label "Dim1" means that the distribution of person locations is specific to one dimension. In multi-dimensional Rasch model (Brigs & Wilson, 2003) and multidimensional IRT analyses (Bonifay, 2019; Reckase, 2009), the Wright Map can show multiple distributions of person locations that correspond to each dimension in the model.
 
 [Cheng - can we add a screenshot here with an arrow pointing to the left panel of the Wright map?]
+[Dr. Wind, do you think put two arrows in one map might be better?]
+![Wright Map illustration](screenshots/Cha2_WM.png)
 
 The large central panel of the plot shows the item locations (item difficulty estimates) on the logit scale that represents the latent variable. Light grey diamond shapes show the logit scale location of each item, as labeled on the x-axis.
 
 [Cheng - can we add a screenshot here with an arrow pointing to the central panel of the Wright map?]
+[Dr.Wind, If you want to divide the previous Map for a better illustration, I can also do that.]
 
 Even though it is not appropriate to fully interpret item and person locations on the logit scale until there is evidence of acceptable model-data fit, we recommend examining the Wright Map during the preliminary stages of an item analysis to get a general sense of the model results and to identify any potential scoring or data entry errors.
 
 A quick glance at the Wright Map suggests that, on average, the persons are located higher on the logit scale compared to the average item locations. In addition, there appears to be a relatively wide spread of person and item locations on the logit scale, such that the transitive reasoning test appears to be a useful tool for identifying differences in person locations and item locations on the latent variable. We will return to this display for more exploration after checking for acceptable model-data fit, among other psychometric properties.
 
 ### Examine Item Parameters:
+
 As the next step in our analysis, we will examine the item parameters in detail. We will use the *$* operator to request the item location esitmates (*xsi*) from the *dichot.transreas* object and store the results in a new object called *difficulty*:
 ```{r}
 difficulty <- dichot.transreas$xsi
@@ -179,9 +192,9 @@ difficulty
 ```
 
 Alternatively, we can examine the dataframe by clicking on it in the *Environment* pane of R Studio or by using the *View()* function with the *difficulty* object: 
-```{r}
-View(difficulty)
-```
+
+#View(difficulty)
+![View Item Difficulty](screenshots/Cha2_ViewDiff.png)
 
 The item difficulty parameters (*xsi*) are the item location estimates on the logit scale that represents the latent variable. Assuming that the responses are scored such that lower scores (x = 0) indicate lower locations on the latent variable (e.g., incorrect, negative, or absent responses), then *lower* item estimates on the logit scale indicate items that are *more difficult* or require persons to have relatively *higher locations* on the construct to provide a correct response. On the other hand, *higher* item estimates on the logit scale indicate items that are *easier* or require persons to have relatively *lower locations* on the construct to provide a correct response. In our analysis, Task 9 is the most difficult item (`xsi` = 1.00), whereas Task 6 is the easiest item (`xsi` = -4.07).
 
@@ -556,7 +569,7 @@ names(jmle.Table1) <- c("Statistic", "Items", "Persons")
 ```{r}
 # Calculate the proportion correct for each task:
 
-TaskCorrect <- apply(transreas.responses, 2, um)
+TaskCorrect <- apply(transreas.responses, 2, sum)
 PropCorrect <- (TaskCorrect/nrow(transreas.responses))
 
 jmle.Table2 <- cbind.data.frame(jmle.item.fit$item, 
@@ -672,10 +685,8 @@ IRT.WrightMap(dichot.transreas,show.thr.lab=FALSE)
 Please use the TAM package to estimate item and person locations with the dichotomous Rasch model for the Exercise 1 data.
 
 
-
 ## References
 [Cheng, please add these :)]
-
 
 ## Supplementary Learning Materials
 
