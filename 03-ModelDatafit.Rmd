@@ -29,13 +29,17 @@ Deviations from model expectations can alert researchers to individual elements 
 
 We focus on residual-based model-data fit indicators that are theoretically aligned with the Rasch measurement framework. Specifically, we demonstrate how analysts can calculate numeric and graphical summaries of *residuals*, or discrepancies between observed item responses and responses that would be expected given model estimates. In the framework of Rasch measurement theory, researchers typically examine residuals as they relate to individual items, persons, or other elements of the assessment context. These residual analyses provide insight into the degree to which the responses associated with elements of interest reflect model expectations. 
 
-Residuals are calculated as follows:
+Residuals (Yni) are calculated as follows:
 
-XXXX[add equations here]
+	Yni = Xni - Eni,
 
-To evaluate the magnitude of residuals, it is often useful to transform residuals to standardized residuals as follows:
+where xni is the observed response from person n on item i, and Eni is the model-expected value of the response for person n on item i.
 
-XXXX[add equations here]
+To evaluate the magnitude of residuals, it is often useful to transform them to standardized residuals (Zni) as follows:
+
+	Zni = Yni/sqrt(Wni),
+
+where Wni is the variance of the observed response.
 
 For example, residual analyses could help a researcher identify an item in an attitude survey for which there were many unexpected responses. Further investigation of these responses using residuals could reveal that the unexpected responses occurred when participants who had otherwise generally negative attitudes, as reflected in low locations on the construct, gave higher-than-expected (i.e., more positive) responses to the item than would be expected given their location estimates. This information could reveal a potential issue related to the item content, which might be interpreted differently for participants with low locations on the construct. Alternatively, this information might provide insight into the nature of the construct and highlight a new direction for future research. Likewise, analysis of residuals associated with individual participants could help researchers identify participants who gave frequent or substantial unexpected responses to subsets of items. 
 
@@ -257,8 +261,11 @@ From these results, we can see that there is some variability in person fit, wit
 
 For discussions on interpreting person fit statistics in the context of Rasch measurement theory, we refer readers to the following resources:
 
-XXXX
-
+	Smith, R. M. (1986). Person Fit in the Rasch Model. Educational and Psychological Measurement, 46(2), 359–372. https://doi.org/10.1177/001316448604600210
+    
+    Walker, A. A., Jennings, J. K., & Engelhard, G. (2018). Using person response functions to investigate areas of person misfit related to item characteristics. Educational Assessment, 23(1), 47–68. https://doi.org/10.1080/10627197.2017.1415143
+    
+    Wolfe, E. W. (2013). A bootstrap approach to evaluating person and item fit to the Rasch model. Journal of Applied Measurement, 14(1), 1–9.
 
 ### Graphical Displays for Evaluating Model-Data Fit
 Next, let’s use some graphical displays to examine model-data fit in more detail. In this chapter, we focus on graphical displays for evaluating model-data fit specific to individual items. However, it is possible to create similar plots for persons as well as for other facets in an assessment context, such as raters.
