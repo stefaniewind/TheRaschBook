@@ -82,7 +82,7 @@ Alemdar, Meltem, Jeremy A. Lingle, Roxanne Moore and Stefanie A. Wind. "Developi
 
 Aryadoust, Vahid, Hannah Ann Hui Tan and Ng Li Ying. "A Scientometric Review of Rasch Measurement: The Rise and Progress of a Specialty." *Frontiers in Psychology*, No.10(2019), https://doi.org/10.3389/fpsyg.2019.02197
 
-Birnbaum, A. "Some latent trait models and their use in inferring an examinee’s ability",  *Statistical theories of mental test scores* Part 5,(1968):395–479, Addison-Wesley.
+Birnbaum, Allan. "Some latent trait models and their use in inferring an examinee’s ability",  *Statistical theories of mental test scores* Part 5,(1968):395–479, Addison-Wesley.
 
 Embretson, Susan E., and Seteven P. Reise. *Item response theory for psychologists.*(2000). Lawrence Erlbaum Associates, Publishers.
 
