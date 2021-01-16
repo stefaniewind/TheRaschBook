@@ -51,14 +51,14 @@ To get started with the eRm package, view the citation information, and then ins
 
 ```{r}
 citation("eRm")
-install.packages("eRm")
+# install.packages("eRm")
 library("eRm")
 ```
 
 We will also use the "psych" package (Revelle, 2016) to perform a PCA of Rasch model standardized residual correlations. To get started with the psych package,view the citation information, and then install and load it into your R environment using the following code:
 ```{r}
 citation("psych")
-install.packages("psych")
+# install.packages("psych")
 library("psych")
 ```
 

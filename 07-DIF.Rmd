@@ -488,7 +488,7 @@ Figure 1 shows a plot of the z-statistics for the four survey items; these value
 
 To further explore the differences in item difficulty between the two subgroups, Figure 2 shows a scatterplot of the item locations between the two subgroups. In the plot, the item difficulty for Subgroup 1 is shown on the x-axis, and the item difficulty for Subgroup 2 is shown on the y-axis. Individual items are indicated using open circle plotting symbols. A solid identity line is included to highlight deviations from invariant item difficulties between the two groups: Points that fall below this line indicate that items were easier to endorse (lower item measures) for Subgroup 2, and points that fall above the line indicate that items were easier to endorse (lower item measures) for Subgroup 1. Dashed lines are also included to indicate a 95% confidence interval for the difference between the item measures, following Luppescu (1995).
 
-![Figure 2: Scatterplot of Subgroup-Specific Item Difficulties](DIF_figure2.png)  
+![Figure 2: Scatterplot of Subgroup-Specific Item Difficulties](DIF_figure2.png)
 
 Finally, Figure 3 is a bar plot that illustrates the direction and magnitude of the differences in item difficulty between subgroups. In the plot, each bar represents the difference in difficulty between subgroups for an individual item, ordered by the item sequence in the survey. Bars that point to the left of the plot indicate that the item was easier to endorse for Subgroup 1, and bars that point to the right of the plot indicate that the item was easier to endorse for Subgroup 2. Dashed vertical lines are plotted that show values of +0.5 and -0.5 logits as an indicator of substantial differences in item difficulty between subgroups. 
 

@@ -110,6 +110,7 @@ transreas.responses <- subset(transreas, select = -c(Student, Grade))
 ```
 
 Next, we will use *summary()* to calculate descriptive statistics for the *transreas.responses* object to check our work and ensure that the responses are ready for analysis:
+
 ```{r}
 # Check descriptive statistics:
 summary(transreas.responses)
@@ -180,6 +181,7 @@ A quick glance at the Wright Map suggests that, on average, the persons are loca
 ### Examine Item Parameters:
 
 As the next step in our analysis, we will examine the item parameters in detail. We will use the *$* operator to request the item location esitmates (*xsi*) from the *dichot.transreas* object and store the results in a new object called *difficulty*:
+
 ```{r}
 difficulty <- dichot.transreas$xsi
 ```
@@ -193,7 +195,10 @@ difficulty
 
 Alternatively, we can examine the dataframe by clicking on it in the *Environment* pane of R Studio or by using the *View()* function with the *difficulty* object: 
 
-#View(difficulty)
+```{r}
+# View(difficulty)
+```
+
 ![View Item Difficulty](screenshots/Cha2_ViewDiff.png)
 
 The item difficulty parameters (*xsi*) are the item location estimates on the logit scale that represents the latent variable. Assuming that the responses are scored such that lower scores (x = 0) indicate lower locations on the latent variable (e.g., incorrect, negative, or absent responses), then *lower* item estimates on the logit scale indicate items that are *more difficult* or require persons to have relatively *higher locations* on the construct to provide a correct response. On the other hand, *higher* item estimates on the logit scale indicate items that are *easier* or require persons to have relatively *lower locations* on the construct to provide a correct response. In our analysis, Task 9 is the most difficult item (`xsi` = 1.00), whereas Task 6 is the easiest item (`xsi` = -4.07).
@@ -203,6 +208,7 @@ The standard error (*se.xsi*) for each item is an estimate of the precision of t
 ## Descriptive Statistics for Item Locations
 
 Next, let's calculate descriptive statistics to better understand the distribution of the item locations and standard errors. We will do so using the *summary()* function and the *sd()* function:
+
 ```{r}
 summary(difficulty)
 sd(difficulty$xsi)
@@ -246,7 +252,7 @@ We can examine the achievement data frame by clicking on it in the *Environment*
 [Cheng - can we add a screenshot here with an arrow pointing to the Environment pane?]
 
 ```{r}
-View(achievement)
+# View(achievement)
 ```
 
 The *achievement* data frame includes the following variables:
@@ -450,7 +456,7 @@ names(jmle.item.estimates) <- c("Item ID", "Item Location", "Item Location SE")
 
 Now we can examine the item parameters in more detail by viewing the *jmle.item.estimates* object in the preview window, calculating summary statistics, and plotting a simple histogram of the person location estimates:
 ```{r}
-View(jmle.item.estimates)
+# View(jmle.item.estimates)
 summary(jmle.item.estimates)
 sd(jmle.item.estimates$`Item Location`)
 hist(jmle.item.estimates$`Item Location`, main = "Histogram of Item Location Estimates \nfor the Transitive Reasoning Data: JMLE", xlab = "Item Location Estimates in Logits") 
@@ -471,8 +477,9 @@ names(jmle.person.estimates) <- c("Student ID", "Theta", "Theta SE")
 ```
 
 Now we can examine the person parameters in more detail by viewing the *jmle.person.estimates* object in the preview window, calculating summary statistics, and plotting a simple histogram of the person location estimates:
+
 ```{r}
-View(jmle.person.estimates)
+# View(jmle.person.estimates)
 summary(jmle.person.estimates)
 sd(jmle.person.estimates$Theta)
 hist(jmle.person.estimates$Theta, main = "Histogram of Person Location Estimates \nfor the Transitive Reasoning Data: JMLE", xlab = "Person Location Estimates in Logits") 
@@ -490,7 +497,7 @@ Now that we have calculated fit statistics for items and persons, we will save t
 ```{r}
 jmle.item.fit <- as.data.frame(jmle.fit$fit.item)
 jmle.item.fit
-View(jmle.item.fit)
+# View(jmle.item.fit)
 summary(jmle.item.fit)
 ```
 
@@ -498,7 +505,7 @@ summary(jmle.item.fit)
 Next, we will save the person fit statistics in a data frame called *jmle.person.fit*. We can examine the person fit statistics in more detail by viewing it in the preview window and calculating summary statistics:
 ```{r}
 jmle.person.fit <- as.data.frame(jmle.fit$fit.person)
-View(jmle.person.fit)
+# View(jmle.person.fit)
 summary(jmle.person.fit)
 ```
 
@@ -535,7 +542,8 @@ jmle.item.summary.results <- rbind(mean(jmle.item.estimates$`Item Location`),
                               sd(jmle.item.fit$infitItem_t),
                               jmle.dichot.transreas$WLEreliability)
 
-#*#*# Item reliability???
+### Item reliability
+
 
 jmle.person.summary.results <- rbind(mean(jmle.person.estimates$Theta),
                               sd(jmle.person.estimates$Theta),
@@ -565,6 +573,35 @@ names(jmle.Table1) <- c("Statistic", "Items", "Persons")
 
 ```
 
+## Calculate the Person/Item Separation Reliability
+Dr. Wind, the chuck for calculating the Person/Item Separation Reliability is sepearte from the Main codes. Could you put the following chunck into approriate palce that you think?
+
+```{r}
+# ===================================
+# compute item separation reliability
+# ===================================
+
+# Get Item scores
+ItemScores <- colSums(transreas.responses)
+
+# Get Item SD
+ItemSD <- apply(transreas.responses,2,sd)
+
+# Calculate the se of the Item
+ItemSE <- ItemSD/sqrt(length(ItemSD))
+
+# compute the Observed Variance (also known as Total Person Variability or Squared Standard Deviation)
+SSD.ItemScores <- var(ItemScores)
+
+# compute the Mean Square Measurement error (also known as Model Error variance)
+Item.MSE <- sum((ItemSE)^2) / length(ItemSE)
+
+# compute the Item Separation Reliability
+item.separation.reliability <- (SSD.ItemScores-Item.MSE) / SSD.ItemScores
+item.separation.reliability
+```
+
+
 ## JMLE item calibration table:
 ```{r}
 # Calculate the proportion correct for each task:
@@ -587,7 +624,6 @@ jmle.Table2 <- jmle.Table2[order(-jmle.Table2$`Item Location`),]
 
 # Round the numeric values (all columns except the first one) for presentation in a table:
 jmle.Table2[, -1] <- round(jmle.Table2[, -1], digits = 2)
-
 ```
 
 ## Person calibration table:
