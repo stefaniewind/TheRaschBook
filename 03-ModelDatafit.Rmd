@@ -356,8 +356,6 @@ summary(SepRel(student.locations))
 ```
 
 
-	  
-
 ## Supplmentary Learning Materials
 1. [*What do Infit and Outfit, Mean-Square and Standardized mean?*](https://www.rasch.org/rmt/rmt162f.htm)
 

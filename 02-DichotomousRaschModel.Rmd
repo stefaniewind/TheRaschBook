@@ -709,6 +709,7 @@ knitr::kable(
 )
 ```
 
+
 Figure 1 illustrates the calibrations of the Participants and Items on the logit scale that represents the latent variable. The calibrations shown in this figure correspond to the results presented in Table 2 and Table 3 for tasks and students, respectively. The right-most column in the figure ("Logits") shows the logit scale. Higher numbers correspond to higher levels of achievement (for students) and higher levels of difficulty (for tasks), and lower numbers correspond to lower achievement and less difficulty, respectively, for students and tasks. Next, student locations on the latent variable are illustrated using a histogram. Examination of the histogram indicates a wide spread of achievement levels, with most students grouped near the middle of the logit scale (*θ* = 0.00). Next, task locations on the logit scale are plotted in the middle panel of the figure. Examination of the task locations indicates a similar overall spread as the student locations. However, the tasks appear somewhat clustered at the lower half of the logit scale, without many items appearing above *θ* >= 0.00. This lack of moderate-difficulty items may have contributed to the relatively large SE values for students with middle-range calibrations.  
 
 ```{r}
@@ -716,13 +717,26 @@ Figure 1 illustrates the calibrations of the Participants and Items on the logit
 IRT.WrightMap(dichot.transreas,show.thr.lab=FALSE)
 ```
 
-
 ## Exericise
 Please use the TAM package to estimate item and person locations with the dichotomous Rasch model for the Exercise 1 data.
 
+## Bibliography
 
-## References
-[Cheng, please add these :)]
+Andrich, David. "An Index of Person Separation in Latent Trait Theory, the Traditional KR-20 Index, and the Guttman Scale Response Pattern." *Education Research and Perspectives*, 9, 95–104.
+
+Bonifay, Wes. *Multidimensional item response theory*(1st ed.). Sage, 2019.
+
+Briggs, Derek and Mark Wilson. "An Introduction to Multidimensional Measurement using Rasch Models." *Journal of Applied Measurement*, 4(1),2003, 87–100.
+
+Cronbach, Lee Joseph. "Coefficient alpha and the internal structure of tests." *Psychometrika*, 16(3),1995, 297–334. https://doi.org/10.1007/BF02310555
+
+Linacre, ‪John Michael.  *A user’s guide to WINSTEPS MINISTEP Rasch-model computer programs* V.3.83.4 [Computer software]. winsteps.com. 2020a, http://www.winsteps.com/manuals.htm
+
+Linacre, ‪John Michae. *A user’s guide to WINSTEPS MINISTEP Rasch-model computer programs* V. 4.7.0 [Computer software], 2020b, winsteps.com. 
+
+Reckase, Mark D. *Multidimensional Item Response Theory*(1st ed.). Springer,2009.
+
+Wilson, Mark. Some Notes on the Term: “Wright Map.” *Rasch Measurement Transactions*, 25(3),2003, 1331.
 
 ## Supplementary Learning Materials
 
