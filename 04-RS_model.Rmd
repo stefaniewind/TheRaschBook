@@ -192,6 +192,7 @@ for(item.number in 1:ncol(stresid)){
 ```
 
 
+
 ## Supplmentary Learning Materials 
 Andrich, D(1978). “A rating formulation for ordered response categories.” Psychometrika,
 43(4), 561–573. doi:10.1007/BF02293814.

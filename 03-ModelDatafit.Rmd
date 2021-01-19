@@ -355,6 +355,31 @@ The "eRm" package provides function *SepRel()* to calculate the person separatio
 summary(SepRel(student.locations))
 ```
 
+## Bibliography
+
+Borsboom, Denny, and Gideon J. Mellenbergh. "Why psychometrics is not pathological: A comment on Michell." *Theory and Psychology*, 14(2004), 105-120.
+
+Chou, Yeh-Tai, and Wen-Chung Wang. "Checking Dimensionality in Item Response Models WithPrincipal Component Analysis on Standardized Residuals." *Educational and Psychological Measurement*, 70(5),2010, 717–731. https://doi.org/10.1177/0013164410379322
+
+Linacre, John Micheal. "Structure in Rasch residuals: Why principal components analysis (PCA)?" *RaschMeasurement Transactions*, 12(2),1998, 636.
+
+Linacre, John Micheal. "Data variance: Explained, modeled and empirical." *Rasch Measurement Transactions*, 17(3), 2003, 942–943.
+
+Mair, Patrick, and Reihold Hatzinger. “Extended Rasch modeling: The eRm package for the application of IRT models in R.” *Journal of Statistical Software*, 20(2007), http://www.jstatsoft.org/v20/i09.
+
+Maul, Andrew. "Ask an Expert: Rasch and Dimensionality." *Rasch Measurement Transactions*, 33(1),2020, 1753-1754.
+
+Michell, Joel.  *Measurement in psychology: A critical history of a methodological concept.* Cambridge University Press Cambridge, England，1999.
+
+Rasch, George. *Probabilistic models for some intelligence and achievement tests(Expanded edition, 1980)*. University of Chicago Press, 1960.
+
+Reckase, Mark D. "Unifactor Latent Trait Models Applied to Multifactor Tests: Results and Implications." *Journal of Educational and Behavioral Statistics*, 4(3),1979, 207–230. https://doi.org/10.3102/10769986004003207
+
+Revelle William. *psych: Procedures for Psychological, Psychometric, and Personality Research.* Northwestern University, Evanston, Illinois. R package version 2.0.12, 2020. https://CRAN.R-project.org/package=psych.
+
+Smith, Jr.Everett. “Detecting and evaluating the impact of multidimensionality using item fit statistics and principal component analysis of residuals.” *Journal of Applied Measurement*, 3(2),2020, 205–231.
+
+Smith, Richard M. “A comparison of methods for determining dimensionality in Rasch measurement.” *Structural Equation Modeling*, 3(1), 1996, 25–40.
 
 ## Supplmentary Learning Materials
 1. [*What do Infit and Outfit, Mean-Square and Standardized mean?*](https://www.rasch.org/rmt/rmt162f.htm)
