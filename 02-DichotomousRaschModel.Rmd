@@ -129,10 +129,10 @@ For brevity, we do not include all of the output from the model function in this
 
 ![Iteration Information](screenshots/Cha2_Iteration.png)
 
+After you run the *tam()* function, your console will show estimates of item parameters (item difficulty locations), reliability estimates, and a summary of the time in which the analysis was completed. We will explore each of these results in more detail later.
 
 [Cheng - can we add a screenshot here?]
 [Dr.Wind, the tam() result do not include item estimates. The item parameters shows up when you call summary() function]
-[Cheng - okay, please delete this screenshot. sorry about that.]
 
 ![TAM Result](screenshots/Cha2_TAM.png)
 
